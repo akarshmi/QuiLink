@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: QuiLink
+  mongodb:
+    uri: ${DB_URL}
+    username:
+    password:
+    database: ${DB_NAME:QuiLink}
