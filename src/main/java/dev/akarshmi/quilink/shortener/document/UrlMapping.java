@@ -21,6 +21,8 @@ public class UrlMapping {
     @Indexed(unique = true)
     private String shortCode;
 
+    private long snowflakeId;
+
     private String longUrl;
 
     private Instant createdAt;
@@ -28,6 +30,8 @@ public class UrlMapping {
     @Indexed(expireAfter = "0s" )
     private Instant expiresAt;
 
+    @Builder.Default
     private long clickCount  = 0;
+    @Builder.Default
     private boolean isActive = true;
 }

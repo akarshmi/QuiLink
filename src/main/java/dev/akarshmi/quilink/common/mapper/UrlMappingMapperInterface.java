@@ -1,5 +1,6 @@
 package dev.akarshmi.quilink.common.mapper;
 
+import dev.akarshmi.quilink.redirect.dto.RedirectResponse;
 import dev.akarshmi.quilink.shortener.document.UrlMapping;
 import dev.akarshmi.quilink.shortener.dto.UrlMappingResponse;
 import org.mapstruct.Mapper;
@@ -10,4 +11,6 @@ import org.mapstruct.MapperConfig;
 public interface UrlMappingMapperInterface {
 
     UrlMappingResponse urlMappingToUrlMappingResponse(UrlMapping urlMapping);
+
+    RedirectResponse toRedirectResponse(UrlMapping urlMapping);
 }

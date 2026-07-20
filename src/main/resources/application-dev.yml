@@ -2,7 +2,28 @@ spring:
   application:
     name: QuiLink
   mongodb:
-    uri: ${DB_URL}
+    uri: ${DB_URL:mongodb://localhost:27017}
     username:
     password:
     database: ${DB_NAME:QuiLink}
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "env,health,info,metrics" # Gives IntelliJ JMX access to 'env'
+    web:
+      exposure:
+        include: "health,info,metrics,prometheus,threaddump" # Keeps your HTTP web setup separate
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include:
+#          - health
+#          - info
+#          - metrics
+#          - prometheus
+#          - threaddump

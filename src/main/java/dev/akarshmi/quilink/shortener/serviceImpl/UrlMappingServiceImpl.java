@@ -32,12 +32,12 @@ public class UrlMappingServiceImpl implements UrlMappingService {
         UrlMapping urlMapped = UrlMapping.builder()
                 .longUrl(request.longUrl())
                 .shortCode(shortCode)
+                .snowflakeId(id)
                 .isActive(true)
                 .createdAt(Instant.now())
                 .build();
 
         UrlMapping saved = urlMappingRepository.save(urlMapped);
-        log.info("Saved : " , saved);
         System.out.println(saved.toString());
         return urlMappingMapper.urlMappingToUrlMappingResponse(urlMapped);
     }
