@@ -2,10 +2,10 @@ spring:
   application:
     name: QuiLink
   mongodb:
-    uri: ${DB_URL:mongodb://localhost:27017}
-    username:
-    password:
-    database: ${DB_NAME:QuiLink}
+    uri: ${DB_URL}
+
+server:
+  port: ${PORT:8080}
 
 management:
   endpoints:
