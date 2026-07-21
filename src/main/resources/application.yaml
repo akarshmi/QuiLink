@@ -1,5 +1,23 @@
+#spring:
+#  profiles:
+#    active: dev
+#  application:
+#    name: QuiLink
+
 spring:
-  profiles:
-    active: dev
   application:
     name: QuiLink
+  mongodb:
+    uri: ${DB_URL}
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "env,health,info,metrics" # Gives IntelliJ JMX access to 'env'
+    web:
+      exposure:
+        include: "health,info,metrics,prometheus,threaddump" # Keeps your HTTP web setup separate
