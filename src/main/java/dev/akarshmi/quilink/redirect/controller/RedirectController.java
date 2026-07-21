@@ -29,4 +29,9 @@ public class RedirectController {
                 .build();
     }
 
+    @GetMapping
+    public ResponseEntity<Void> ping() {
+        return ResponseEntity.ok().build();
+    }
+
 }

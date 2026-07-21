@@ -15,7 +15,7 @@ public class UrlMappingController {
     private final UrlMappingService urlMappingService;
 
     @PostMapping()
-    public ResponseEntity<UrlMappingResponse> ping(@RequestBody UrlMappingRequest request) {
+    public ResponseEntity<UrlMappingResponse> shorten(@RequestBody UrlMappingRequest request) {
         return ResponseEntity.ok(urlMappingService.shortener(request));
 
     }
