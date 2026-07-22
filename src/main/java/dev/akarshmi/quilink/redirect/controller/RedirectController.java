@@ -16,11 +16,11 @@ public class RedirectController {
 
     private final RedirectService  redirectService;
 
-    @GetMapping("/v1/{shortCode}")
+    @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirect(
             @PathVariable String shortCode
     ) {
-        // now first we will check for now that directly later we will use redis for that
+        // now first we will check for noew that directly later we will use redis for that
 
         // first find that is that shortcode is available?
         RedirectResponse response = redirectService.getRedirect(shortCode);
