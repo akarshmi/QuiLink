@@ -23,6 +23,9 @@ public class RedirectController {
         // now first we will check for noew that directly later we will use redis for that
 
         // first find that is that shortcode is available?
+
+//        redirectService.getRedirect(shortCode);
+
         RedirectResponse response = redirectService.getRedirect(shortCode);
         return ResponseEntity.status(HttpStatus.FOUND)
                 .location(URI.create(response.longUrl()))

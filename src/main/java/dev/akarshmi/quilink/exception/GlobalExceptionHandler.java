@@ -3,49 +3,51 @@ package dev.akarshmi.quilink.exception;
 import dev.akarshmi.quilink.exception.validation.ResourceGoneException;
 import dev.akarshmi.quilink.exception.validation.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.Instant;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private final String notFoundHtml;
+    private final String goneHtml;
+
+    public GlobalExceptionHandler() throws IOException {
+        this.notFoundHtml = loadTemplate("templates/error/not-found.html");
+        this.goneHtml = loadTemplate("templates/error/gone.html");
+    }
+
+    private String loadTemplate(String path) throws IOException {
+        ClassPathResource resource = new ClassPathResource(path);
+        return new String(resource.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiError> handleResourceNotFound(
+    public ResponseEntity<String> handleResourceNotFound(
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
-
-        ApiError error = ApiError.builder()
-                .timestamp(Instant.now())
-                .status(HttpStatus.NOT_FOUND.value())
-                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
-                .message(ex.getMessage())
-                .path(request.getRequestURI())
-                .build();
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(error);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.TEXT_HTML)
+                .body(notFoundHtml);
     }
 
     @ExceptionHandler(ResourceGoneException.class)
-    public ResponseEntity<ApiError> handleResourceGone(
+    public ResponseEntity<String> handleResourceGone(
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
-
-        ApiError error = ApiError.builder()
-                .timestamp(Instant.now())
-                .status(HttpStatus.GONE.value())
-                .error(HttpStatus.GONE.getReasonPhrase())
-                .message(ex.getMessage())
-                .path(request.getRequestURI())
-                .build();
-
-        return ResponseEntity.status(HttpStatus.GONE)
-                .body(error);
+        return ResponseEntity
+                .status(HttpStatus.GONE)
+                .contentType(MediaType.TEXT_HTML)
+                .body(goneHtml);
     }
 }
