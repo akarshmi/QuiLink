@@ -35,8 +35,8 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         String html = notFoundHtml.replace(
-                "<div class=\"code\">go.akarshmi.dev/abc123</div>",
-                "<div class=\"code\">" + ex.getMessage() + "</div>"
+                "<div class=\"code\">go.akarshmi.dev/{shortCode}</div>",
+                "<div class=\"code\">go.akarshmi.dev/" + ex.getMessage() + "</div>"
         );
 
         return ResponseEntity
@@ -51,8 +51,8 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         String html = goneHtml.replace(
-                "<div class=\"code\">go.akarshmi.dev/abc123</div>",
-                "<div class=\"code\">" + ex.getMessage() + "</div>"
+                "<div class=\"code\">go.akarshmi.dev/{shortCode}</div>",
+                "<div class=\"code\">go.akarshmi.dev/" + ex.getMessage() + "</div>"
         );
 
 
