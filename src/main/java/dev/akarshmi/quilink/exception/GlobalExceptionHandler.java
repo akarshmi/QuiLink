@@ -34,6 +34,11 @@ public class GlobalExceptionHandler {
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
+        String html = notFoundHtml.replace(
+                "<div class=\"code\">go.akarshmi.dev/abc123</div>",
+                "<div class=\"code\">" + ex.getMessage() + "</div>"
+        );
+
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.TEXT_HTML)
@@ -45,6 +50,12 @@ public class GlobalExceptionHandler {
             ResourceNotFoundException ex,
             HttpServletRequest request
     ) {
+        String html = goneHtml.replace(
+                "<div class=\"code\">go.akarshmi.dev/abc123</div>",
+                "<div class=\"code\">" + ex.getMessage() + "</div>"
+        );
+
+
         return ResponseEntity
                 .status(HttpStatus.GONE)
                 .contentType(MediaType.TEXT_HTML)

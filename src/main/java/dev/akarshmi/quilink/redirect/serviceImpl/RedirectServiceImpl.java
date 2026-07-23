@@ -24,14 +24,14 @@ public class RedirectServiceImpl implements RedirectService {
     @Override
     public RedirectResponse getRedirect(String shortCode) {
         UrlMapping mapping= urlMappingRepository.findByShortCode(shortCode)
-                .orElseThrow(() -> new ResourceNotFoundException("Short code not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(shortCode));
 
         if(!mapping.isActive()){
-            throw new ResourceNotFoundException("Short code not found");
+            throw new ResourceNotFoundException(shortCode);
         }
 
         if (mapping.getExpiresAt()!=null && mapping.getExpiresAt().isBefore(Instant.now())){
-            throw new ResourceGoneException("Short Code has expired.");
+            throw new ResourceGoneException(shortCode);
         }
 
         mapping.setClickCount(mapping.getClickCount()+1);
